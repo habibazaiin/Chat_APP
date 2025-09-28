@@ -1,16 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/firebase_options.dart';
 import 'package:myapp/views/chat_view.dart';
+import 'package:myapp/views/cubits/login_cubit/login_cubit.dart';
 import 'package:myapp/views/login_view.dart';
 import 'package:myapp/views/register_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    BlocProvider(create: (context) => LoginCubit(), child: const ChatApp()),
   );
-  runApp(const ChatApp());
 }
 
 class ChatApp extends StatelessWidget {
@@ -22,7 +24,7 @@ class ChatApp extends StatelessWidget {
       routes: {
         LoginView.id: (context) => LoginView(),
         RegisterView.id: (context) => RegisterView(),
-        ChatView.id : (context) => ChatView(),
+        ChatView.id: (context) => ChatView(),
       },
       initialRoute: LoginView.id,
       debugShowCheckedModeBanner: false,
