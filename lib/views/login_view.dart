@@ -116,8 +116,5 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Future<void> SignInUser() async {
-    UserCredential user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email!, password: password!);
-  }
+  
 }
