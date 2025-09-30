@@ -7,15 +7,10 @@ import 'package:myapp/widgets/custom_button.dart';
 import 'package:myapp/widgets/custom_text_form_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class RegisterView extends StatefulWidget {
-  RegisterView({super.key});
+
+
+class RegisterView extends StatelessWidget {
   static String id = 'RegisterPage';
-
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
   String? email;
 
   String? password;
@@ -74,28 +69,7 @@ class _RegisterViewState extends State<RegisterView> {
                     CustomButton(
                       onTap: () async {
                         if (globalKey.currentState!.validate()) {
-                          isLoading = true;
-                          setState(() {});
-                          try {
-                            await RegisterUser();
-                            Navigator.pushNamed(context, ChatView.id, arguments: email);
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'weak-password') {
-                              ShowSnackBar(
-                                context,
-                                'The password provided is too weak.',
-                              );
-                            } else if (e.code == 'email-already-in-use') {
-                              ShowSnackBar(
-                                context,
-                                'The account already exists for that email.',
-                              );
-                            }
-                          } catch (e) {
-                            ShowSnackBar(context, 'there was an error');
-                          }
-                          isLoading = false;
-                          setState(() {});
+                          
                         }
                       },
                       text: 'Register',
