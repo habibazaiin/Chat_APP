@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/constants.dart';
 
 class ChatBubble extends StatelessWidget {
-  const ChatBubble({
-    super.key, required this.message,
-  });
+  const ChatBubble({super.key, required this.message, required this.showError});
   final String message;
+  final bool showError;
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +17,34 @@ class ChatBubble extends StatelessWidget {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(32),
             topRight: Radius.circular(32),
-            bottomRight: Radius.circular(32)
+            bottomRight: Radius.circular(32),
           ),
-          color: kPrimaryColor
+          color: kPrimaryColor,
         ),
-        child: Text(message,
-        style: TextStyle(
-          color: Colors.white
-        ),),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(message, style: TextStyle(color: Colors.white)),
+            showError ? Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: CircleAvatar(
+                radius: 10,
+                backgroundColor: Colors.red,
+                child: Center(
+                  child: Text('!', style: TextStyle(color: Colors.white)),
+                ),
+              ),
+            ) : SizedBox(),
+          ],
+        ),
       ),
     );
   }
 }
 
 class ChatBubbleForFriend extends StatelessWidget {
-  const ChatBubbleForFriend({
-    super.key, required this.message,
-  });
+  const ChatBubbleForFriend({super.key, required this.message});
   final String message;
 
   @override
@@ -48,16 +58,12 @@ class ChatBubbleForFriend extends StatelessWidget {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(32),
             topRight: Radius.circular(32),
-            bottomLeft: Radius.circular(32)
+            bottomLeft: Radius.circular(32),
           ),
-          color: Color(0xffF593F8)
+          color: Color(0xffF593F8),
         ),
-        child: Text(message,
-        style: TextStyle(
-          color: kPrimaryColor
-        ),),
+        child: Text(message, style: TextStyle(color: kPrimaryColor)),
       ),
     );
   }
 }
-

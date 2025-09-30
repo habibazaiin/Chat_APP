@@ -9,3 +9,5 @@ class ChatSuccess extends ChatState {
   final List<Message> messages;
   ChatSuccess({required this.messages});
 }
+
+final class ChatFailure extends ChatState {}

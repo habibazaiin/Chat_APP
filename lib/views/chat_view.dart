@@ -6,8 +6,6 @@ import 'package:myapp/views/cubits/chat_cubit/chat_cubit.dart';
 import 'package:myapp/widgets/chat_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-
 class ChatView extends StatelessWidget {
   ChatView({super.key});
   static String id = 'ChatPage';
@@ -43,11 +41,20 @@ class ChatView extends StatelessWidget {
                     itemCount: state.messages.length,
                     itemBuilder: (context, index) {
                       return state.messages[index].id == email
-                          ? ChatBubble(message: state.messages[index].message)
+                          ? ChatBubble(
+                              message: state.messages[index].message,
+                              showError: false,
+                            )
                           : ChatBubbleForFriend(
                               message: state.messages[index].message,
                             );
                     },
+                  );
+                } else if (state is ChatFailure) {
+                  return ChatBubble(
+                    message:
+                        "Failed to send message", 
+                    showError: true, 
                   );
                 } else {
                   return const Center(child: CircularProgressIndicator());
@@ -61,9 +68,9 @@ class ChatView extends StatelessWidget {
               controller: controller,
               onSubmitted: (value) {
                 context.read<ChatCubit>().sendMessage(
-                      message: value,
-                      email: email,
-                    );
+                  message: value,
+                  email: email,
+                );
                 controller.clear();
               },
               decoration: InputDecoration(
