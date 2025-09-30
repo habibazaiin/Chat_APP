@@ -16,18 +16,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       emit(RegisterSucess());
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        emit(RegisterFailure(errMessage: 'This email is already in use'));
-      } else if (e.code == 'weak-password') {
-        emit(RegisterFailure(errMessage: 'Password is too weak'));
-      } else if (e.code == 'invalid-email') {
-        emit(RegisterFailure(errMessage: 'Invalid email format'));
-      } else {
-        emit(
-          RegisterFailure(errMessage: 'Registration failed, please try again'),
-        );
-      }
     } catch (e) {
       emit(
         RegisterFailure(errMessage: 'Something went wrong, Please try again'),

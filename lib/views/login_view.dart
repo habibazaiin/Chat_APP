@@ -27,7 +27,7 @@ class LoginView extends StatelessWidget {
           ShowSnackBar(context, state.errMessage);
           isLoading = false;
         } else if (state is LoginSucess) {
-          Navigator.pushNamed(context, ChatView.id);
+          Navigator.pushNamed(context, ChatView.id, arguments: email,);
           isLoading = false;
         }
       },
