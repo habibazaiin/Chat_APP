@@ -115,8 +115,4 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  Future<void> RegisterUser() async {
-    UserCredential user = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email!, password: password!);
-  }
 }
